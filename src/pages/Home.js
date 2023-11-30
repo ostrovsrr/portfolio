@@ -9,7 +9,10 @@ const Home = () => {
           <ul className="content-list">
             <li className="content-list__item">
               <h2 className="title-2">Frontend</h2>
-              <p>JavaScript, TypeScript, ReactJS, HTML5, CSS3, BootStrap</p>
+              <p>
+                JavaScript, ReactJS, HTML5, CSS3, BootStrap, Sass, Less, Figma,
+                Photoshop
+              </p>
             </li>
             <li className="content-list__item">
               <h2 className="title-2">Backend</h2>

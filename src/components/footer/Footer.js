@@ -10,14 +10,14 @@ const Footer = () => {
         <div className="footer__wrapper">
           <ul className="social">
             <li className="social__item">
-              <a href="https://github.com/ostrovsrr" target="blank">
+              <a href="https://github.com/ostrovsrr" target="_blank">
                 <img src={gitHub} alt="Link" />
               </a>
             </li>
             <li className="social__item">
               <a
                 href="https://www.linkedin.com/in/rodion-ostrovskii/"
-                target="blank"
+                target="_blank"
               >
                 <img src={linkedIn} alt="Link" />
               </a>
