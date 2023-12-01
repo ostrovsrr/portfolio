@@ -13,43 +13,99 @@ import project04Big from "./../img/projects/04-big.jpg";
 import project05 from "./../img/projects/05.jpg";
 import project05Big from "./../img/projects/05-big.jpg";
 
+import project06 from "./../img/projects/06.jpg";
+import project06Big from "./../img/projects/06-big.jpg";
+
+import project07 from "./../img/projects/07.jpg";
+import project07Big from "./../img/projects/07-big.jpg";
+
+import project08 from "./../img/projects/08.jpg";
+import project08Big from "./../img/projects/08-big.jpg";
+
+import project09 from "./../img/projects/09.jpg";
+import project09Big from "./../img/projects/09-big.jpg";
+
+import project10 from "./../img/projects/10.jpg";
+import project10Big from "./../img/projects/10-big.jpg";
+
 const projects = [
   {
     title: "Banks Branch Manager",
-    skills: "Javascript, Leaflet Map, Geolocation API, Sorting Arrays",
+    skills:
+      "Javascript, OOP, Leaflet Map, Geolocation API, Advanced Sorting Arrays",
     img: project01,
     imgBig: project01Big,
     gitHubLink: "https://github.com/ostrovsrr/banks-branch-manager",
     viewLink: "https://ronnie-atm-manager.netlify.app/",
   },
   {
-    title: "Dynamic Pallete Generator",
+    title: "Banking",
     img: project02,
     imgBig: project02Big,
-    skills: "Native Javascript",
+    skills: "Javascript, Lazy Loading, Advanced DOM, Event Delegation",
+    gitHubLink: "https://github.com/ostrovsrr/banking",
+    viewLink: "https://ronnie-banking.netlify.app/",
+  },
+  {
+    title: "Bankist",
+    img: project03,
+    imgBig: project03Big,
+    skills: "Javascript, LocalStorage, Array Manipulation and Sorting",
+    gitHubLink: "https://github.com/ostrovsrr/bankist",
+    viewLink: "https://ostrovsrr.github.io/bankist/",
+  },
+  {
+    title: "Simple Airbnb",
+    img: project04,
+    imgBig: project04Big,
+    skills: "Javascript, React",
+    gitHubLink: "https://github.com/ostrovsrr/airbnb",
+    viewLink: "https://ostrovsrr.github.io/airbnb/",
+  },
+  {
+    title: "Dynamic Pallete Generator",
+    img: project05,
+    imgBig: project05Big,
+    skills: "Javascript, Responsive Simple Web Design",
     gitHubLink: "https://github.com/ostrovsrr/js-pallete",
     viewLink: "https://ostrovsrr.github.io/js-pallete/",
   },
   {
-    title: "Flippy Birdie",
-    img: project03,
-    imgBig: project03Big,
-    skills: "C#, Unity, .NET",
-    gitHubLink: "https://github.com/ostrovsrr/flippie-birdie",
-    viewLink: "https://ostrovsrr.github.io/flippie-birdie/",
+    title: "Pig Game",
+    img: project06,
+    imgBig: project06Big,
+    skills: "Javascript, DOM manipulation, Event handling",
+    gitHubLink: "https://github.com/ostrovsrr/pig-game",
+    viewLink: "https://ronnie-pig-game.netlify.app/",
+  },
+  {
+    title: "Guess-My-Number Game",
+    img: project07,
+    imgBig: project07Big,
+    skills: "Javascript, DOM manipulation, Event handling",
+    gitHubLink: "https://github.com/ostrovsrr/guess-my-number",
+    viewLink: "https://ronnie-guess-my-number.netlify.app",
   },
   {
     title: "Restaurant Reviews Manager",
-    img: project04,
-    imgBig: project04Big,
+    img: project08,
+    imgBig: project08Big,
     skills: "J2EE, Spring Boot, Web, MVC, JDBC",
     gitHubLink: "https://github.com/ostrovsrr/restaurant-reviews-manager",
     viewLink: "",
   },
   {
+    title: "Flippy Birdie",
+    img: project09,
+    imgBig: project09Big,
+    skills: "C#, Unity, .NET",
+    gitHubLink: "https://github.com/ostrovsrr/flippie-birdie",
+    viewLink: "https://ostrovsrr.github.io/flippie-birdie/",
+  },
+  {
     title: "Titanic Predictor",
-    img: project05,
-    imgBig: project05Big,
+    img: project10,
+    imgBig: project10Big,
     skills: "Machine Learning, Python, Matplotlib, Pandas, Numpy",
     gitHubLink: "https://github.com/ostrovsrr/titanic",
     viewLink: "https://www.kaggle.com/rodionostrovskii/competitions",
