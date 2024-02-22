@@ -7,23 +7,24 @@
   --black: #171718;
   --black-border: #26292d;
   --white: #fff;
+  --light-mode: #dcdcdc;
   --purple: #5c62ec;
 
   /* Nav */
-  --nav-bg: var(--black);
+  --nav-bg: var(--white);
   --nav-border: var(--black-border);
-  --nav-text: var(--white);
+  --nav-text: var(--black);
 
   /* Header */
-  --header-bg: var(--black);
-  --header-text: var(--white);
+  --header-bg: var(--white);
+  --header-text: var(--black);
 
   /* Footer */
-  --footer-bg: var(--black);
-  --footer-text: var(--white);
+  --footer-bg: var(--white);
+  --footer-text: var(--black);
 
   /* Light mode */
-  --page-bg: var(--white);
+  --page-bg: var(--light-mode);
   --text-color: var(--black);
   --accent: var(--purple);
   --title-1: var(--accent);
@@ -43,6 +44,18 @@
   --project-card-bg: var(--black);
   --project-card-text: var(--white);
   --box-shadow: 0px 5px 35px rgba(0, 0, 0, 0.8);
+
+  /* Navbar */
+  --nav-bg: var(--black);
+  --nav-text: var(--white);
+
+  /* Header */
+  --header-bg: var(--black);
+  --header-text: var(--white);
+
+  /* Footer */
+  --footer-bg: var(--black);
+  --footer-text: var(--white);
 }
 
 html,

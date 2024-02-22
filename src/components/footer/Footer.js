@@ -1,7 +1,7 @@
 import "./style.css";
 
-import linkedIn from "./../../img/icons/linkedIn.svg";
-import gitHub from "./../../img/icons/gitHub.svg";
+import linkedIn from "./../../img/icons/linkedin.png";
+import gitHub from "./../../img/icons/github.png";
 
 const Footer = () => {
   return (
@@ -11,7 +11,7 @@ const Footer = () => {
           <ul className="social">
             <li className="social__item">
               <a href="https://github.com/ostrovsrr" target="_blank">
-                <img src={gitHub} alt="Link" />
+                <img className="social__image" src={gitHub} alt="Link" />
               </a>
             </li>
             <li className="social__item">
@@ -19,7 +19,7 @@ const Footer = () => {
                 href="https://www.linkedin.com/in/rodion-ostrovskii/"
                 target="_blank"
               >
-                <img src={linkedIn} alt="Link" />
+                <img className="social__image" src={linkedIn} alt="Link" />
               </a>
             </li>
           </ul>

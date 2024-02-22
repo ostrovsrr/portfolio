@@ -1,5 +1,5 @@
-import Project from "../components/project/Project";
-import { projects } from "./../helpers/projectsList";
+import Project from '../components/project/Project';
+import { projects } from './../helpers/projectsList';
 
 const Projects = () => {
   return (
@@ -14,6 +14,7 @@ const Projects = () => {
                 title={project.title}
                 img={project.img}
                 index={index}
+                skills={project.skills2}
               />
             );
           })}
