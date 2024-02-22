@@ -1,4 +1,4 @@
-import Header from "./../components/header/Header";
+import Header from './../components/header/Header';
 
 const Home = () => {
   return (
@@ -10,13 +10,16 @@ const Home = () => {
             <li className="content-list__item">
               <h2 className="title-2">Frontend</h2>
               <p>
-                JavaScript, ReactJS, HTML5, CSS3, BootStrap, Sass, Less, Figma,
+                JavaScript, ReactJS, HTML5, CSS3, BootStrap, Tailwind, Figma,
                 Photoshop
               </p>
             </li>
             <li className="content-list__item">
               <h2 className="title-2">Backend</h2>
-              <p>Java, Spring Boot, NodeJS, MySQL, MongoDB, PHP</p>
+              <p>
+                Java, Spring Boot, NodeJS, ExpressJS, MySQL, MongoDB, AWS,
+                Firebase
+              </p>
             </li>
           </ul>
         </div>
