@@ -10,15 +10,15 @@ const Home = () => {
             <li className="content-list__item">
               <h2 className="title-2">Frontend</h2>
               <p>
-                JavaScript, ReactJS, HTML5, CSS3, BootStrap, Tailwind, Figma,
-                Photoshop
+                JavaScript/TypeScript, Angular, ReactJS, HTML5, CSS3, BootStrap,
+                Figma, Photoshop
               </p>
             </li>
             <li className="content-list__item">
               <h2 className="title-2">Backend</h2>
               <p>
-                Java, Spring Boot, NodeJS, ExpressJS, MySQL, MongoDB, AWS,
-                Firebase
+                ASP.NET, Java, Spring Boot, NodeJS, ExpressJS, MySQL, MongoDB,
+                AWS, Firebase
               </p>
             </li>
           </ul>
