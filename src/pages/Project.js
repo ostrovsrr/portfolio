@@ -1,6 +1,6 @@
-import { useParams } from "react-router-dom";
-import BtnDeployed from "../components/btnDeployed/BtnDeployed";
-import { projects } from "./../helpers/projectsList";
+import { useParams } from 'react-router-dom';
+import BtnDeployed from '../components/btnDeployed/BtnDeployed';
+import { projects } from './../helpers/projectsList';
 
 const Project = () => {
   const { id } = useParams();
