@@ -75,7 +75,10 @@ import { experience, skills } from '../data/profile';
    * leaves a short fading trail, and when the pointer stops the lettering settles back to
    * the untouched image. The loop only runs while some tile is still displaced.
    *
-   * Touch-only devices and prefers-reduced-motion keep the plain <img>.
+   * On touch screens a finger dragging across the lettering does the same, without ever
+   * blocking the page from scrolling (the listeners are passive), and a short automatic
+   * sweep plays once on load so visitors know the lettering is interactive.
+   * prefers-reduced-motion keeps the plain <img> everywhere.
    */
   (() => {
     const hero = document.getElementById('hero');
@@ -84,10 +87,12 @@ import { experience, skills } from '../data/profile';
 
     const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
     const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
-    if (reduceMotion.matches || !finePointer.matches) return;
+    if (reduceMotion.matches) return;
 
     // ---- tuning ----
-    const COLS = 44;            // tiles across the image
+    const COLS = 44;            // tiles across the image on wide screens
+    const COLS_NARROW = 24;     // fewer, bigger tiles on phones so the effect stays visible
+    const INTRO_MS = 1100;      // touch screens: length of the one-off sweep on load
     const RADIUS = 2.6;         // brush radius, in tiles
     const PUSH = 2.2;           // how far a tile shifts relative to pointer travel
     const MAX_SHIFT = 2.4;      // cap, in tiles
@@ -110,8 +115,8 @@ import { experience, skills } from '../data/profile';
       canvas.width = Math.round(rect.width * dpr);
       canvas.height = Math.round(rect.height * dpr);
       scale = canvas.width / img.naturalWidth;
-      tile = img.naturalWidth / COLS;
-      cols = COLS;
+      cols = rect.width < 700 ? COLS_NARROW : COLS;
+      tile = img.naturalWidth / cols;
       rows = Math.ceil(img.naturalHeight / tile);
       dx = new Float32Array(cols * rows);
       dy = new Float32Array(cols * rows);
@@ -124,6 +129,7 @@ import { experience, skills } from '../data/profile';
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     }
 
+    // Works for mouse/pen events and for Touch objects (both have clientX/clientY)
     function toSource(e) {
       const r = canvas.getBoundingClientRect();
       return {
@@ -198,6 +204,44 @@ import { experience, skills } from '../data/profile';
         last = p;
       });
       hero.addEventListener('pointerleave', () => { last = null; });
+
+      // Finger trail. Passive listeners: the page keeps scrolling as normal.
+      let touchLast = null;
+      let touched = false;
+      hero.addEventListener('touchstart', (e) => {
+        touched = true;
+        touchLast = e.touches.length === 1 ? toSource(e.touches[0]) : null;
+      }, { passive: true });
+      hero.addEventListener('touchmove', (e) => {
+        if (e.touches.length !== 1 || !touchLast) return;
+        const p = toSource(e.touches[0]);
+        push(touchLast, p);
+        touchLast = p;
+      }, { passive: true });
+      const endTouch = () => { touchLast = null; };
+      hero.addEventListener('touchend', endTouch, { passive: true });
+      hero.addEventListener('touchcancel', endTouch, { passive: true });
+
+      // One-off sweep on touch screens, if the lettering is on screen and untouched.
+      if (!finePointer.matches) {
+        setTimeout(() => {
+          const r = hero.getBoundingClientRect();
+          if (touched || r.bottom <= 0 || r.top >= innerHeight) return;
+          const W = img.naturalWidth, H = img.naturalHeight;
+          let prev = null, t0 = null;
+          const step = (now) => {
+            if (touched) return;
+            t0 ??= now;
+            const t = Math.min(1, (now - t0) / INTRO_MS);
+            const e = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;   // ease in-out
+            const p = { x: W * (0.04 + 0.92 * e), y: H * (0.6 + Math.sin(e * Math.PI * 3) * 0.14) };
+            if (prev) push(prev, p);
+            prev = p;
+            if (t < 1) requestAnimationFrame(step);
+          };
+          requestAnimationFrame(step);
+        }, 500);
+      }
       new ResizeObserver(() => { setup(); }).observe(hero);
       reduceMotion.addEventListener('change', (e) => {
         if (!e.matches) return;
