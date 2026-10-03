@@ -17,13 +17,26 @@ npm run check     # type-check .astro and .ts files
 
 | To change | Edit |
 |---|---|
-| Nav, footer, page `<head>` | `src/layouts/Base.astro` |
-| Project cards (home and projects page) | `src/data/projects.ts` |
+| Header, footer, page `<head>` | `src/layouts/Base.astro` |
+| Projects (home and projects page) | `src/data/projects.ts` |
 | Experience and skills (home page) | `src/data/profile.ts` |
+| About text and hero lettering (home page) | `src/pages/index.astro`, `public/img/rodion-letters.webp` |
 | Events | add a Markdown file to `src/content/events/` |
 | A page | `src/pages/<name>.astro` (the file name is the URL) |
-| Styles | `src/styles/global.css` |
+| Styles | `src/styles/global.css` (design system, all pages), `src/styles/case-study.css` (case studies) |
 | Images, CNAME, resume.pdf | `public/` (served as-is from the site root) |
+
+### The design
+
+Light grey page (`#eaeaea`, the same grey as the lettering image), ink type in Inter Tight,
+hairline rules. Every page is a stack of `.section`s: a 12-column grid that starts with a
+hairline, a small `(label)` in columns 1–2 and the content in columns 3–12. Colours and the
+page margin are tokens at the top of `global.css`.
+
+On the home page the "Rodion" lettering is drawn into a canvas that pushes square tiles
+around as the mouse moves over it, and settles back to the image when it stops. The script is
+inline at the bottom of `src/pages/index.astro`, with its tuning constants at the top.
+Touch devices and visitors who prefer reduced motion get the plain image.
 
 ### Adding an event
 
@@ -52,7 +65,7 @@ and add it to the `nav` list in `src/layouts/Base.astro`.
 
 Run `npm run dev`, open http://localhost:4321 and click **✎ Draft mode** (bottom right).
 
-- **⠿** drag a block to reorder it within its list (sections, cards, experience, skills, events, bullets, tags)
+- **⠿** drag a block to reorder it within its list (sections, project rows, experience, skills, events, bullets, tags)
 - **Click any text** to rewrite it
 - **●** hide a block, **⧉** duplicate it (to add another card or item), **✎** leave a note
 - **Copy changes** puts a summary of every edit, across all pages, on your clipboard
