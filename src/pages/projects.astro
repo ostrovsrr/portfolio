@@ -1,7 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import ProjectRow from '../components/ProjectRow.astro';
+import Tags from '../components/Tags.astro';
 import { featured, earlier } from '../data/projects';
+
+const count = (n: number) => String(n).padStart(2, '0');
 ---
 <Base
   title="Projects · Rodion Ostrovskii"
@@ -9,22 +12,33 @@ import { featured, earlier } from '../data/projects';
   active="projects"
 >
   <main>
+    <section class="section page-head">
+      <p class="label">(work)</p>
+      <h1 class="page-title">Projects</h1>
+    </section>
+
     <section class="section">
-      <div class="container">
-        <h1 class="title-1">Projects</h1>
-        <div class="projects">
-          {featured.map((p) => <ProjectCard project={p} headingLevel="h2" />)}
-        </div>
+      <p class="label">(selected work) <b>{count(featured.length)}</b></p>
+      <div class="work">
+        {featured.map((p, i) => <ProjectRow project={p} index={i} withCover />)}
       </div>
     </section>
 
     <section class="section">
-      <div class="container">
-        <h2 class="title-1 title-1--small">Earlier practice projects</h2>
-        <div class="projects projects--small">
-          {earlier.map((p) => <ProjectCard project={p} />)}
-        </div>
-      </div>
+      <p class="label">(earlier) <b>{count(earlier.length)}</b></p>
+      <h2 class="earlier__title">Earlier practice projects</h2>
+      <ul class="earlier">
+        {earlier.map((p) => (
+          <li>
+            <a class="card" href={p.href} {...(p.external ? { target: '_blank', rel: 'noreferrer' } : {})}>
+              {p.cover.kind === 'image' && <img src={p.cover.src} alt="" class="card__img" loading="lazy" width="370" height="278">}
+              <h3 class="card__title">{p.title}</h3>
+              <p class="card__desc">{p.description}</p>
+              <Tags tags={p.tags} />
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   </main>
 </Base>

@@ -1,5 +1,5 @@
 ---
-// Shared page shell: <head>, nav and footer. Every page wraps its content in this.
+// Shared page shell: <head>, header and footer. Every page wraps its content in this.
 import '../styles/global.css';
 
 // Draft mode (drag, edit and annotate the page locally) exists only in `npm run dev`,
@@ -15,16 +15,39 @@ interface Props {
   active?: NavKey;
   ogTitle?: string;
   ogDescription?: string;
+  /** Desktop only: lay the header over the hero lettering (home page). */
+  overlayHeader?: boolean;
+  /** 'big': the home page's large contact block. 'minimal': links and copyright only. */
+  footer?: 'big' | 'default' | 'minimal';
 }
-const { title, description, active, ogTitle = title, ogDescription = description } = Astro.props;
+const {
+  title,
+  description,
+  active,
+  ogTitle = title,
+  ogDescription = description,
+  overlayHeader = false,
+  footer = 'default',
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const isHome = active === 'home';
+const path = Astro.url.pathname.replace(/\.html$/, '');
 
-const nav: { key: NavKey; label: string; href: string }[] = [
-  { key: 'home', label: 'Home', href: '/' },
-  { key: 'projects', label: 'Projects', href: '/projects' },
-  { key: 'events', label: 'Events', href: '/events' },
-  { key: 'contacts', label: 'Contacts', href: '/contacts' },
+const nav: { key?: NavKey; label: string; href: string }[] = [
+  { key: 'projects', label: 'work', href: '/projects' },
+  { key: 'events', label: 'events', href: '/events' },
+  { label: 'about', href: isHome ? '#about' : '/#about' },
+  { key: 'contacts', label: 'contact', href: '/contacts' },
 ];
+// "page" on the page itself; "true" on pages inside that section (case studies under work).
+const current = (item: { key?: NavKey; href: string }) =>
+  item.key && item.key === active ? (path === item.href ? 'page' : 'true') : undefined;
+
+const social = [
+  { label: 'github', href: 'https://github.com/ostrovsrr' },
+  { label: 'linkedin', href: 'https://www.linkedin.com/in/rodion-ostrovskii/' },
+];
+const year = new Date().getFullYear();
 ---
 <!doctype html>
 <html lang="en">
@@ -39,65 +62,44 @@ const nav: { key: NavKey; label: string; href: string }[] = [
   <meta property="og:type" content="website">
   <meta property="og:url" content={canonical}>
   <!-- Add a 1200x630 image to public/img/og.png, then: <meta property="og:image" content="https://rodion-ostrovskii.com/img/og.png"> -->
+  <meta name="theme-color" content="#eaeaea">
   <link rel="icon" href="data:,">
-  <!-- Runs before first paint so a saved dark theme doesn't flash light -->
-  <script is:inline>
-    try { if (localStorage.getItem('darkMode') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
-  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<nav class="nav">
-  <div class="container">
-    <div class="nav-row">
-      <a href="/" class="logo"><strong>Rodion's</strong> portfolio</a>
-      <button class="dark-mode-btn" type="button" aria-label="Dark mode">
-        <img src="/img/sun.svg" alt="" class="dark-mode-btn__icon">
-        <img src="/img/moon.svg" alt="" class="dark-mode-btn__icon">
-      </button>
-      <ul class="nav-list">
-        {nav.map((item) => (
-          <li>
-            <a
-              href={item.href}
-              class:list={['nav-list__link', { 'nav-list__link--active': item.key === active }]}
-              aria-current={item.key === active ? 'page' : undefined}
-            >{item.label}</a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </div>
-</nav>
+<header class:list={['top', { 'top--overlay': overlayHeader }]}>
+  <a href="/" class="top__name" aria-current={isHome ? 'page' : undefined}>rodion</a>
+  <span class="top__role">software engineer</span>
+  <nav class="top__nav" aria-label="Main">
+    <ul class="top__list">
+      {nav.map((item) => <li><a href={item.href} aria-current={current(item)}>{item.label}</a></li>)}
+    </ul>
+  </nav>
+  <ul class="top__list top__social">
+    {social.map((s) => <li><a href={s.href} target="_blank" rel="noreferrer">{s.label}</a></li>)}
+  </ul>
+  <span class="top__place">oakville, on</span>
+</header>
 
 <slot />
 
-<footer class="footer">
-  <div class="container">
-    <div class="footer__wrapper">
-      <ul class="social">
-        <li class="social__item"><a href="https://github.com/ostrovsrr" target="_blank" rel="noreferrer"><img src="/img/github.png" alt="GitHub" class="social__image"></a></li>
-        <li class="social__item"><a href="https://www.linkedin.com/in/rodion-ostrovskii/" target="_blank" rel="noreferrer"><img src="/img/linkedin.png" alt="LinkedIn" class="social__image"></a></li>
-      </ul>
-      <div class="copyright"><p>© {new Date().getFullYear()} Rodion Ostrovskii · <a href="mailto:ostrovsrr@gmail.com">ostrovsrr@gmail.com</a></p></div>
-    </div>
+<footer
+  class:list={['section', 'contact', { 'contact--big': footer === 'big', 'contact--minimal': footer === 'minimal' }]}
+  id={footer === 'big' ? 'contact' : undefined}
+>
+  {footer !== 'minimal' && <p class="label">(contact)</p>}
+  {footer !== 'minimal' && <a class="contact__mail" href="mailto:ostrovsrr@gmail.com">ostrovsrr@gmail.com</a>}
+  <div class="contact__row">
+    <ul>
+      {social.map((s) => <li><a href={s.href} target="_blank" rel="noreferrer">{s.label}</a></li>)}
+    </ul>
+    <span class="muted">oakville, ontario · © {year} rodion ostrovskii</span>
   </div>
 </footer>
 
-<script>
-  // Same light/dark switch as the original site (the .dark class), remembered between visits.
-  const root = document.documentElement;
-  const btn = document.querySelector<HTMLButtonElement>('.dark-mode-btn');
-  if (btn) {
-    const sync = () => btn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
-    sync();
-    btn.addEventListener('click', () => {
-      root.classList.toggle('dark');
-      sync();
-      try { localStorage.setItem('darkMode', root.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
-    });
-  }
-</script>
 {DevEditor && <DevEditor />}
 </body>
 </html>

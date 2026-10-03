@@ -5,29 +5,38 @@ import Base from '../layouts/Base.astro';
   title="Contacts · Rodion Ostrovskii"
   description="Contact Rodion Ostrovskii, Shopify Solutions Engineer in Oakville, Ontario."
   active="contacts"
+  footer="minimal"
 >
-  <main class="section">
-    <div class="container">
-      <h1 class="title-1">Contacts</h1>
-      <ul class="content-list">
-        <li class="content-list__item">
-          <h2 class="title-2">Location</h2>
+  <main>
+    <section class="section page-head">
+      <p class="label">(contact)</p>
+      <h1 class="page-title">Contacts</h1>
+    </section>
+
+    <section class="section">
+      <p class="label">(details)</p>
+      <ul class="contact-list">
+        <li class="contact-list__item">
+          <h2>Location</h2>
           <p>Oakville, Ontario</p>
         </li>
-        <li class="content-list__item">
-          <h2 class="title-2">Email</h2>
+        <li class="contact-list__item">
+          <h2>Email</h2>
           <p><a href="mailto:ostrovsrr@gmail.com">ostrovsrr@gmail.com</a></p>
         </li>
-        <li class="content-list__item">
-          <h2 class="title-2">LinkedIn</h2>
+        <li class="contact-list__item">
+          <h2>LinkedIn</h2>
           <p><a href="https://www.linkedin.com/in/rodion-ostrovskii/" target="_blank" rel="noreferrer">linkedin.com/in/rodion-ostrovskii</a></p>
         </li>
-        <li class="content-list__item">
-          <h2 class="title-2">GitHub</h2>
+        <li class="contact-list__item">
+          <h2>GitHub</h2>
           <p><a href="https://github.com/ostrovsrr" target="_blank" rel="noreferrer">github.com/ostrovsrr</a></p>
         </li>
-        <!-- Add public/resume.pdf, then add a Resume item linking to /resume.pdf -->
+        <li class="contact-list__item">
+          <h2>Resume</h2>
+          <p><a href="/resume.pdf" target="_blank" rel="noreferrer">Download PDF</a></p>
+        </li>
       </ul>
-    </div>
+    </section>
   </main>
 </Base>

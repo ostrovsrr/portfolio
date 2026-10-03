@@ -1,12 +1,29 @@
 ---
-// Title cover for a project that has no screenshot yet.
+// Title cover for a project that has no screenshot yet. `warm` is the dark variant;
+// `large` is the case-study size.
 interface Props {
   title: string;
   subtitle: string;
   warm?: boolean;
+  large?: boolean;
 }
-const { title, subtitle, warm = false } = Astro.props;
+const { title, subtitle, warm = false, large = false } = Astro.props;
 ---
-<div class:list={['cover-art', { 'cover-art--warm': warm }]} aria-hidden="true">
+<div class:list={['cover-art', { 'cover-art--warm': warm, 'cover-art--large': large }]} aria-hidden="true">
   <b>{title}</b><span>{subtitle}</span>
 </div>
+
+<style>
+  .cover-art {
+    width: 100%; aspect-ratio: 4 / 3; padding: 20px;
+    display: flex; flex-direction: column; justify-content: flex-end; gap: 8px;
+    background: #dcdcdc; border: 1px solid var(--line); color: var(--ink);
+  }
+  .cover-art b { font-size: clamp(24px, 2.6vw, 40px); line-height: 1; letter-spacing: -0.03em; font-weight: 500; }
+  .cover-art span { font-size: 13px; color: var(--muted); }
+  .cover-art--warm { background: var(--ink); border-color: var(--ink); color: var(--bg); }
+  .cover-art--warm span { color: #a3a3a3; }
+  .cover-art--large { aspect-ratio: 2 / 1; padding: clamp(20px, 3vw, 40px); }
+  .cover-art--large b { font-size: clamp(36px, 6vw, 96px); letter-spacing: -0.045em; }
+  .cover-art--large span { font-size: 15px; }
+</style>

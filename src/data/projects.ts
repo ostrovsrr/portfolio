@@ -24,15 +24,15 @@ export interface Project {
 export const featured: Project[] = [
   {
     title: 'Shopify Migration QA Platform',
-    description: 'Tells the migration team whether Shopify will accept a file before it reaches a client store.',
+    description: 'Works with large CSV files, tells whether data will be accepted or rejected by Shopify bulk upload. Streamlines product / customer migration.',
     href: '/qa-platform',
     cover: { kind: 'qa-mock' },
     stats: [
       { value: '4h → 1h', label: 'per migration' },
-      { value: '9', label: 'specialists use it' },
       { value: '200k+', label: 'SKUs' },
+      { value: '70k+', label: 'Customers' },
     ],
-    tags: ['TypeScript', 'React', 'Node', 'PostgreSQL', 'Shopify API'],
+    tags: ['TypeScript', 'React', 'Node', 'PostgreSQL', 'Shopify API', 'Docker'],
   },
   {
     title: 'Rewards Platform',

@@ -1,72 +1,212 @@
 ---
 import Base from '../layouts/Base.astro';
-import ProjectCard from '../components/ProjectCard.astro';
+import ProjectRow from '../components/ProjectRow.astro';
 import { featured } from '../data/projects';
 import { experience, skills } from '../data/profile';
 ---
 <Base
   title="Rodion Ostrovskii · Shopify Solutions Engineer"
   description="Rodion Ostrovskii, Shopify Solutions Engineer in Oakville, Ontario. Hydrogen and Liquid storefronts, plus the internal tooling that makes Shopify data migrations safe."
-  ogDescription="Headless and Liquid storefronts, plus migration tooling used by a team of 9."
+  ogDescription="Headless and Liquid storefronts, plus Shopify data migration tooling."
   active="home"
+  overlayHeader
+  footer="big"
 >
-  <header class="header">
-    <div class="header__wrapper">
-      <p class="header__eyebrow">Shopify Solutions Engineer · Oakville, Ontario</p>
-      <h1 class="header__title">
-        <strong>Hi, my name is <em>Rodion</em></strong><br>
-        I build Shopify storefronts and migration tools
-      </h1>
-      <div class="header__text">
-        <p>At Helios Technology I ship Hydrogen and Liquid storefronts for 20+ merchants, and I built the QA platform our migration team uses to check files before import.</p>
-      </div>
-      <div class="header__actions">
-        <a href="/projects" class="btn">View projects</a>
-        <a href="/contacts" class="btn-outline">Get in touch</a>
-        <!-- Add public/resume.pdf, then add: <a href="/resume.pdf" class="btn-outline">Download resume</a> -->
-      </div>
-    </div>
-  </header>
+  <div class="hero" id="hero">
+    <img id="hero-img" src="/img/rodion-letters.webp" alt="Rodion" width="2000" height="664" fetchpriority="high">
+  </div>
 
   <main>
-    <section class="section">
-      <div class="container">
-        <h2 class="title-1">Featured projects</h2>
-        <div class="projects">
-          {featured.map((p) => <ProjectCard project={p} />)}
-        </div>
+    <section class="section" id="about">
+      <p class="label">(about)</p>
+      <h1 class="about__lede">Software Engineer with a focus on Shopify Development</h1>
+      <p class="about__text">
+        Full Stack Development | Data Migration | Shopify Storefront Development | API Integration
+      </p>
+      <div class="about__links">
+        <a class="pill pill--dark" href="#work">See my projects ↓</a>
+        <a class="pill" href="/resume.pdf" target="_blank" rel="noreferrer">See Resume</a>
+      </div>
+      <ul class="about__facts">
+        <li><b>20+</b><span>merchant storefronts</span></li>
+        <li><b>100+</b><span>data migrations</span></li>
+        <li><b>3</b><span>co-op internships</span></li>
+        <li><b>10+</b><span>hackathons and events</span></li>
+      </ul>
+    </section>
+
+    <section class="section" id="work">
+      <p class="label">(selected projects) <b>{String(featured.length).padStart(2, '0')}</b></p>
+      <div class="work">
+        {featured.map((p, i) => <ProjectRow project={p} index={i} />)}
+        <a class="work__all pill" href="/projects">All projects →</a>
       </div>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="title-1">Experience</h2>
-        <ol class="timeline">
-          {experience.map((job) => (
-            <li class="timeline__item">
-              <span class="timeline__date">{job.dates}</span>
-              <div>
-                <h3 class="timeline__title">{job.title}</h3>
-                <p class="timeline__org">{job.org}</p>
-                <p class="timeline__text">{job.summary}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      </div>
+    <section class="section" id="experience">
+      <p class="label">(experience)</p>
+      <ol class="jobs">
+        {experience.map((job) => (
+          <li class="job">
+            <span class="job__dates">{job.dates}</span>
+            <div><h3 class="job__title">{job.title}</h3><p class="job__org">{job.org}</p></div>
+            <p class="job__summary">{job.summary}</p>
+          </li>
+        ))}
+      </ol>
     </section>
 
-    <section class="section">
-      <div class="container">
-        <ul class="content-list">
-          {skills.map((group) => (
-            <li class="content-list__item">
-              <h2 class="title-2">{group.name}</h2>
-              <p>{group.items}</p>
-            </li>
-          ))}
-        </ul>
+    <section class="section" id="skills">
+      <p class="label">(skills)</p>
+      <div class="skills">
+        {skills.map((group) => <div><h3>{group.name}</h3><p>{group.items}</p></div>)}
       </div>
     </section>
   </main>
+
+  <script is:inline>
+  /*
+   * Tile-displacement lettering. Applies to the "Rodion"
+   * lettering only; the header and everything else on the page is plain static HTML.
+   *
+   * The lettering image is drawn to a canvas split into square tiles. Moving the pointer
+   * pushes the tiles it passes over: each shows its slice of the image offset in the
+   * direction of travel, scaled by pointer speed. Every push decays each frame, so the path
+   * leaves a short fading trail, and when the pointer stops the lettering settles back to
+   * the untouched image. The loop only runs while some tile is still displaced.
+   *
+   * Touch-only devices and prefers-reduced-motion keep the plain <img>.
+   */
+  (() => {
+    const hero = document.getElementById('hero');
+    const img = document.getElementById('hero-img');
+    if (!hero || !img) return;
+
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const finePointer = matchMedia('(hover: hover) and (pointer: fine)');
+    if (reduceMotion.matches || !finePointer.matches) return;
+
+    // ---- tuning ----
+    const COLS = 44;            // tiles across the image
+    const RADIUS = 2.6;         // brush radius, in tiles
+    const PUSH = 2.2;           // how far a tile shifts relative to pointer travel
+    const MAX_SHIFT = 2.4;      // cap, in tiles
+    const DECAY = 0.9;          // per frame (60fps): ~0.7s from full push to settled
+    const EPS = 0.02;           // below this (source px) a tile counts as settled
+
+    const canvas = document.createElement('canvas');
+    canvas.setAttribute('aria-hidden', 'true');
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    let tile = 0, cols = 0, rows = 0;
+    let dx, dy;
+    let scale = 1;
+    let running = false;
+    let last = null;
+
+    function setup() {
+      const rect = hero.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = Math.round(rect.width * dpr);
+      canvas.height = Math.round(rect.height * dpr);
+      scale = canvas.width / img.naturalWidth;
+      tile = img.naturalWidth / COLS;
+      cols = COLS;
+      rows = Math.ceil(img.naturalHeight / tile);
+      dx = new Float32Array(cols * rows);
+      dy = new Float32Array(cols * rows);
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      drawBase();
+    }
+
+    function drawBase() {
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    }
+
+    function toSource(e) {
+      const r = canvas.getBoundingClientRect();
+      return {
+        x: (e.clientX - r.left) / r.width * img.naturalWidth,
+        y: (e.clientY - r.top) / r.height * img.naturalHeight,
+      };
+    }
+
+    function push(from, to) {
+      const vx = to.x - from.x, vy = to.y - from.y;
+      const dist = Math.hypot(vx, vy);
+      if (dist < 0.5) return;
+      const steps = Math.max(1, Math.ceil(dist / (tile * 0.5)));
+      const cap = MAX_SHIFT * tile;
+      for (let s = 1; s <= steps; s++) {
+        const px = from.x + vx * s / steps, py = from.y + vy * s / steps;
+        const cx = px / tile, cy = py / tile;
+        const x0 = Math.max(0, Math.floor(cx - RADIUS)), x1 = Math.min(cols - 1, Math.ceil(cx + RADIUS));
+        const y0 = Math.max(0, Math.floor(cy - RADIUS)), y1 = Math.min(rows - 1, Math.ceil(cy + RADIUS));
+        for (let ty = y0; ty <= y1; ty++) {
+          for (let tx = x0; tx <= x1; tx++) {
+            const d = Math.hypot(tx + 0.5 - cx, ty + 0.5 - cy);
+            if (d > RADIUS) continue;
+            const f = (1 - d / RADIUS) ** 2 * PUSH / steps;
+            const i = ty * cols + tx;
+            dx[i] = Math.max(-cap, Math.min(cap, dx[i] + vx * f));
+            dy[i] = Math.max(-cap, Math.min(cap, dy[i] + vy * f));
+          }
+        }
+      }
+      start();
+    }
+
+    function frame() {
+      drawBase();
+      let active = false;
+      const size = tile * scale;
+      for (let ty = 0; ty < rows; ty++) {
+        for (let tx = 0; tx < cols; tx++) {
+          const i = ty * cols + tx;
+          const ox = dx[i], oy = dy[i];
+          if (Math.abs(ox) < EPS && Math.abs(oy) < EPS) { dx[i] = dy[i] = 0; continue; }
+          active = true;
+          let sx = tx * tile - ox, sy = ty * tile - oy;
+          sx = Math.max(0, Math.min(img.naturalWidth - tile, sx));
+          sy = Math.max(0, Math.min(img.naturalHeight - tile, sy));
+          const X = Math.round(tx * size), Y = Math.round(ty * size);
+          const W = Math.round((tx + 1) * size) - X, H = Math.round((ty + 1) * size) - Y;
+          ctx.drawImage(img, sx, sy, tile, tile, X, Y, W, H);
+          dx[i] = ox * DECAY;
+          dy[i] = oy * DECAY;
+        }
+      }
+      if (active) requestAnimationFrame(frame);
+      else { running = false; drawBase(); }
+    }
+
+    function start() {
+      if (running) return;
+      running = true;
+      requestAnimationFrame(frame);
+    }
+
+    function init() {
+      setup();
+      hero.prepend(canvas);
+      hero.classList.add('fx-on');
+      hero.addEventListener('pointermove', (e) => {
+        if (e.pointerType !== 'mouse' && e.pointerType !== 'pen') return;
+        const p = toSource(e);
+        if (last) push(last, p);
+        last = p;
+      });
+      hero.addEventListener('pointerleave', () => { last = null; });
+      new ResizeObserver(() => { setup(); }).observe(hero);
+      reduceMotion.addEventListener('change', (e) => {
+        if (!e.matches) return;
+        canvas.remove(); hero.classList.remove('fx-on');
+      });
+    }
+
+    if (img.complete && img.naturalWidth) init();
+    else img.addEventListener('load', init, { once: true });
+  })();
+  </script>
 </Base>

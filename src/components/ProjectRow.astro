@@ -1,0 +1,42 @@
+---
+// One numbered row in a "selected work" list (home and projects pages).
+// With `withCover` (projects page) the project's cover sits on the right.
+import type { Project } from '../data/projects';
+import Tags from './Tags.astro';
+import QaMock from './QaMock.astro';
+import CoverArt from './CoverArt.astro';
+
+interface Props {
+  project: Project;
+  index: number;
+  withCover?: boolean;
+}
+const { project, index, withCover = false } = Astro.props;
+const { title, description, href, external, cover, tags, stats } = project;
+const num = String(index + 1).padStart(2, '0');
+---
+<a
+  class:list={['work__row', { 'work__row--cover': withCover }]}
+  href={href}
+  {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+>
+  <span class="work__num">{num}</span>
+  <h2 class="work__title">{title}&nbsp;<span class="arrow" aria-hidden="true">→</span></h2>
+  <p class="work__desc">{description}</p>
+  <div class="work__meta">
+    {stats && (
+      <div class="work__stats">
+        {stats.map((s) => <div><b>{s.value}</b><span>{s.label}</span></div>)}
+      </div>
+    )}
+    <Tags tags={tags} />
+    {withCover && !external && <span class="work__more">Read case study →</span>}
+  </div>
+  {withCover && (
+    <div class="work__cover">
+      {cover.kind === 'qa-mock' && <QaMock compact />}
+      {cover.kind === 'art' && <CoverArt title={cover.title} subtitle={cover.subtitle} warm={cover.warm} />}
+      {cover.kind === 'image' && <img src={cover.src} alt="" class="card__img" loading="lazy" />}
+    </div>
+  )}
+</a>
