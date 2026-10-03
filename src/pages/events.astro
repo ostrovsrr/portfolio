@@ -17,29 +17,36 @@ const monthYear = new Intl.DateTimeFormat('en-CA', { month: 'long', year: 'numer
   description="Hackathons, competitions and community events Rodion Ostrovskii has taken part in."
   active="events"
 >
-  <main class="section">
-    <div class="container">
-      <h1 class="title-1">Events</h1>
-      {entries.length === 0 && <p class="events-empty">Nothing here yet.</p>}
-      <ol class="events">
+  <main>
+    <section class="section page-head">
+      <p class="label">(events)</p>
+      <h1 class="page-title">Events</h1>
+    </section>
+
+    <section class="section">
+      <p class="label">(timeline) <b>{String(entries.length).padStart(2, '0')}</b></p>
+      {entries.length === 0 && <p class="empty">Nothing here yet.</p>}
+      <ol class="jobs events">
         {entries.map(({ event, Content }) => (
-          <li class="event">
-            <time class="event__date" datetime={event.data.date.toISOString().slice(0, 10)}>
+          <li class="job event">
+            <time class="job__dates" datetime={event.data.date.toISOString().slice(0, 10)}>
               {monthYear.format(event.data.date)}
             </time>
             <div>
-              <h2 class="event__title">
+              <h2 class="job__title event__title">
                 {event.data.link
                   ? <a href={event.data.link} target="_blank" rel="noreferrer">{event.data.title}</a>
                   : event.data.title}
               </h2>
-              <p class="event__role">{event.data.role}</p>
-              <div class="event__body"><Content /></div>
+              <p class="job__org">{event.data.role}</p>
+            </div>
+            <div class="job__summary">
+              <Content />
               {event.data.tags.length > 0 && <Tags tags={event.data.tags} />}
             </div>
           </li>
         ))}
       </ol>
-    </div>
+    </section>
   </main>
 </Base>
