@@ -1,7 +1,9 @@
 ---
+// A list of tags shown as one line of text ("a · b · c"); the dots come from CSS.
 interface Props {
   tags: string[];
+  class?: string;
 }
-const { tags } = Astro.props;
+const { tags, class: className } = Astro.props;
 ---
-<ul class="tags">{tags.map((t) => <li>{t}</li>)}</ul>
+<ul class:list={['tags', className]}>{tags.map((t) => <li>{t}</li>)}</ul>
