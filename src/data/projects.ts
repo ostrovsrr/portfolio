@@ -32,7 +32,7 @@ export const featured: Project[] = [
       { value: '200k+', label: 'SKUs' },
       { value: '50k+', label: 'Customers' },
     ],
-    tags: ['TypeScript', 'React', 'Node', 'PostgreSQL', 'Shopify API'],
+    tags: ['TypeScript', 'React', 'Node', 'PostgreSQL', 'Shopify API', 'Docker'],
   },
   {
     title: 'Rewards Platform',
