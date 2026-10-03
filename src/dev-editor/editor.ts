@@ -15,25 +15,26 @@ import Sortable from 'sortablejs';
 // Elements whose children can be reordered. Children of these become "blocks".
 const CONTAINER_SELECTORS = [
   'main',
-  '.project-details',
-  '.case',
-  '.projects',
-  '.timeline',
-  '.content-list',
-  '.events',
+  '.work',
+  '.earlier',
+  '.jobs',
+  '.skills',
+  '.contact-list',
+  '.about__links',
+  '.about__facts',
+  '.work__stats',
   '.facts',
+  '.prose',
   '.steps',
   '.results',
   '.bullets',
   '.tags',
-  '.header__actions',
-  '.project-details__actions',
-  '.project__stats',
+  '.case-actions',
 ];
 
-// Regions of the page that are snapshotted and restored. Nav and footer are left out:
-// replacing them would detach their scripts (the dark-mode switch). Use a note for those.
-const REGION_SELECTOR = 'body > header.header, body > main';
+// Regions of the page that are snapshotted and restored. The header, the home-page hero
+// (its canvas effect is wired up by a script) and the footer are left out. Use a note for those.
+const REGION_SELECTOR = 'body > main';
 
 const UI = '[data-ed-ui]';
 const KEY_PREFIX = 'ed:draft:';
@@ -98,7 +99,7 @@ function regions(): Element[] {
 }
 
 function blockLabel(el: Element): string {
-  const heading = ['.project__title', '.timeline__title', '.event__title', 'h1', 'h2', 'h3', 'dt', 'b']
+  const heading = ['.work__title', '.job__title', '.card__title', 'h1', 'h2', 'h3', 'dt', 'b']
     .map((sel) => el.querySelector(sel))
     .find((found) => found && !found.closest(UI));
   const text = heading ? textOf(heading) : textOf(el);
