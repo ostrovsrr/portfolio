@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Migration QA Platform · Rodion Ostrovskii</title>
+  <meta name="description" content="Case study: an internal QA platform that checks Shopify migration files before import. Used by 9 migration specialists, cuts QA from 4 hours to 1 per migration.">
+  <meta property="og:title" content="Shopify Migration QA Platform · case study">
+  <meta property="og:description" content="Will Shopify accept this file? A tool that answers before the client import.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme.js"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <div class="nav-row">
+      <a href="index.html" class="logo"><strong>Rodion's</strong> portfolio</a>
+      <button class="dark-mode-btn" type="button" aria-label="Dark mode">
+        <img src="img/sun.svg" alt="" class="dark-mode-btn__icon">
+        <img src="img/moon.svg" alt="" class="dark-mode-btn__icon">
+      </button>
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-list__link">Home</a></li>
+        <li><a href="projects.html" class="nav-list__link nav-list__link--active">Projects</a></li>
+        <li><a href="contacts.html" class="nav-list__link">Contacts</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main class="section">
+  <div class="container">
+    <div class="project-details">
+      <h1 class="title-1">Shopify Migration QA Platform</h1>
+
+      <!-- TODO: swap this illustration for a real screenshot taken on SAMPLE data only, once your manager approves -->
+      <div class="project-details__cover" aria-hidden="true">
+        <div class="mock">
+          <div class="mock-panel">
+            <div class="mock-head"><span>Import results · 3 test stores</span><span class="ok">96.8%</span></div>
+            <div class="mock-row"><span>Imported</span><span></span><span class="ok">11,842</span></div>
+            <div class="mock-row"><span>Blank option value</span><code>BLANK</code><span class="no">214</span></div>
+            <div class="mock-row"><span>Duplicate variant</span><code>TAKEN</code><span class="no">97</span></div>
+            <div class="mock-row"><span>Invalid email</span><code>INVALID</code><span class="no">41</span></div>
+          </div>
+        </div>
+      </div>
+      <p class="caption">Illustration with sample data. No client data is shown.</p>
+
+      <div class="project-details__desc">
+        <p>Will Shopify accept this file? I designed and built an internal tool that answers before anything touches a client store.</p>
+      </div>
+
+      <dl class="facts">
+        <div class="fact"><dt>Role</dt><dd>Sole engineer</dd></div>
+        <div class="fact"><dt>Users</dt><dd>9 migration specialists</dd></div>
+        <div class="fact"><dt>Scale</dt><dd>50k+ customers, 200k+ SKUs</dd></div>
+        <div class="fact"><dt>Where</dt><dd>Helios Technology, 2026</dd></div>
+      </dl>
+
+      <div class="case">
+        <h2 class="title-2">The problem</h2>
+        <p>Migration specialists move merchants' customers and products into Shopify from CSV exports. Shopify rejects rows for reasons that aren't obvious from the file: a variant that duplicates another, a blank option value, an email Shopify won't accept. The team often found out after importing, then had to clean up the store and try again.</p>
+        <p>Checking a file by hand took about four hours per migration.</p>
+
+        <h2 class="title-2">What I built</h2>
+        <p>A web app with two sections, customers and products, sharing one server, one client and one PostgreSQL database.</p>
+        <ol class="steps">
+          <li><b>Upload</b>Drop in the CSV. Customer files get a column-mapping step; product files are already in Shopify's format.</li>
+          <li><b>Pre-check</b>Rules flag what Shopify will reject, judged on the exact rows the import will send.</li>
+          <li><b>Test import</b>Import into one or more test stores in parallel through Shopify's bulk API.</li>
+          <li><b>Report</b>Every rejection traced to its source row and grouped by field and error code, with an Excel export.</li>
+        </ol>
+
+        <h2 class="title-2">Engineering decisions</h2>
+        <ul class="bullets">
+          <li><strong>Only report what Shopify would reject.</strong> Each pre-check rule is checked against a real test-store result. A rule that fires on data Shopify accepts is noise, so it doesn't ship.</li>
+          <li><strong>Judge what gets sent, not the raw file.</strong> The import transforms the data (merging duplicates, tagging, moving notes). The rules run on that transformed data, so the pre-check and the import always agree.</li>
+          <li><strong>Built for big files.</strong> Uploads stream to disk instead of loading into memory, and imports use Shopify's bulk operations, so 200k+ SKU catalogs work without a bigger server.</li>
+          <li><strong>Merchant data is treated as sensitive.</strong> Raw CSVs are deleted once processed, and a sweep removes anything a crash leaves behind.</li>
+          <li><strong>Tested and shipped through CI.</strong> Unit and integration tests (Vitest) run on every pull request in GitHub Actions.</li>
+        </ul>
+
+        <h2 class="title-2">Results</h2>
+        <div class="results">
+          <div class="result"><b>4h → 1h</b><span>QA and prep time per migration (75% less)</span></div>
+          <div class="result"><b>9 of 9</b><span>migration specialists on the team use it</span></div>
+          <div class="result"><b>200k+</b><span>SKUs per file, 50k+ customer records</span></div>
+        </div>
+
+        <h2 class="title-2">Stack</h2>
+        <ul class="tags">
+          <li>TypeScript</li><li>Node.js</li><li>Express</li><li>React</li><li>Vite</li>
+          <li>PostgreSQL</li><li>Prisma</li><li>Shopify Admin GraphQL</li><li>Vitest</li><li>GitHub Actions</li>
+        </ul>
+
+        <p class="note">This is an internal tool at Helios Technology Solutions, so the source code isn't public. I'm happy to walk through the architecture in an interview.</p>
+        <p class="next-link"><a href="rewards-platform.html">Next project: Rewards Platform →</a></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__wrapper">
+      <ul class="social">
+        <li class="social__item"><a href="https://github.com/ostrovsrr" target="_blank" rel="noreferrer"><img src="img/github.png" alt="GitHub" class="social__image"></a></li>
+        <li class="social__item"><a href="https://www.linkedin.com/in/rodion-ostrovskii/" target="_blank" rel="noreferrer"><img src="img/linkedin.png" alt="LinkedIn" class="social__image"></a></li>
+      </ul>
+      <div class="copyright"><p>© 2026 Rodion Ostrovskii · <a href="mailto:ostrovsrr@gmail.com">ostrovsrr@gmail.com</a></p></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

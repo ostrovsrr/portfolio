@@ -1,1 +1,187 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><link rel="icon" href="/favicon.ico"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#000000"/><meta name="description" content="Web site created using create-react-app"/><link rel="apple-touch-icon" href="/logo192.png"/><link rel="manifest" href="/manifest.json"/><title>Rodion's portfolio</title><script defer="defer" src="/static/js/main.3b64859b.js"></script><link href="/static/css/main.27b77647.css" rel="stylesheet"></head><body><noscript>You need to enable JavaScript to run this app.</noscript><div id="root"></div></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rodion Ostrovskii · Shopify Solutions Engineer</title>
+  <meta name="description" content="Rodion Ostrovskii, Shopify Solutions Engineer in Oakville, Ontario. Hydrogen and Liquid storefronts, plus the internal tooling that makes Shopify data migrations safe.">
+  <meta property="og:title" content="Rodion Ostrovskii · Shopify Solutions Engineer">
+  <meta property="og:description" content="Headless and Liquid storefronts, plus migration tooling used by a team of 9.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rodion-ostrovskii.com/">
+  <!-- TODO: add a 1200x630 preview image and uncomment -->
+  <!-- <meta property="og:image" content="https://rodion-ostrovskii.com/img/og.png"> -->
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="styles.css">
+  <script src="theme.js"></script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <div class="nav-row">
+      <a href="index.html" class="logo"><strong>Rodion's</strong> portfolio</a>
+      <button class="dark-mode-btn" type="button" aria-label="Dark mode">
+        <img src="img/sun.svg" alt="" class="dark-mode-btn__icon">
+        <img src="img/moon.svg" alt="" class="dark-mode-btn__icon">
+      </button>
+      <ul class="nav-list">
+        <li><a href="index.html" class="nav-list__link nav-list__link--active" aria-current="page">Home</a></li>
+        <li><a href="projects.html" class="nav-list__link">Projects</a></li>
+        <li><a href="contacts.html" class="nav-list__link">Contacts</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header class="header">
+  <div class="header__wrapper">
+    <p class="header__eyebrow">Shopify Solutions Engineer · Oakville, Ontario</p>
+    <h1 class="header__title">
+      <strong>Hi, my name is <em>Rodion</em></strong><br>
+      I build Shopify storefronts and migration tools
+    </h1>
+    <div class="header__text">
+      <p>At Helios Technology I ship Hydrogen and Liquid storefronts for 20+ merchants, and I built the QA platform our migration team uses to check files before import.</p>
+    </div>
+    <div class="header__actions">
+      <a href="projects.html" class="btn">View projects</a>
+      <a href="contacts.html" class="btn-outline">Get in touch</a>
+      <!-- Add resume.pdf to this folder, then add: <a href="resume.pdf" class="btn-outline">Download resume</a> -->
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section">
+    <div class="container">
+      <h2 class="title-1">Featured projects</h2>
+      <div class="projects">
+
+        <a class="project" href="qa-platform.html">
+          <div class="mock" aria-hidden="true">
+            <div class="mock-panel">
+              <div class="mock-head"><span>Import results · 3 stores</span><span class="ok">96.8%</span></div>
+              <div class="mock-row"><span>Imported</span><span></span><span class="ok">11,842</span></div>
+              <div class="mock-row"><span>Blank option</span><code>BLANK</code><span class="no">214</span></div>
+              <div class="mock-row"><span>Duplicate variant</span><code>TAKEN</code><span class="no">97</span></div>
+              <div class="mock-row"><span>Invalid email</span><code>INVALID</code><span class="no">41</span></div>
+            </div>
+          </div>
+          <h3 class="project__title">Shopify Migration QA Platform</h3>
+          <p class="project__desc">Tells the migration team whether Shopify will accept a file before it reaches a client store.</p>
+          <div class="project__stats">
+            <div><b>4h → 1h</b><span>per migration</span></div>
+            <div><b>9</b><span>specialists use it</span></div>
+            <div><b>200k+</b><span>SKUs</span></div>
+          </div>
+          <ul class="tags"><li>TypeScript</li><li>React</li><li>Node</li><li>PostgreSQL</li><li>Shopify API</li></ul>
+          <span class="project__more">Read case study →</span>
+        </a>
+
+        <a class="project" href="rewards-platform.html">
+          <div class="cover-art" aria-hidden="true"><b>Points → Rewards</b><span>Angular · Spring Boot · PostgreSQL</span></div>
+          <h3 class="project__title">Rewards Platform</h3>
+          <p class="project__desc">A loyalty app where members redeem points for partner rewards, with every redemption in one database transaction.</p>
+          <ul class="tags"><li>Angular</li><li>Spring Boot</li><li>PostgreSQL</li><li>Docker</li><li>GitHub Actions</li></ul>
+          <span class="project__more">Read case study →</span>
+        </a>
+
+        <a class="project" href="floor-is-lava.html">
+          <div class="cover-art cover-art--warm" aria-hidden="true"><b>Floor is Lava</b><span>Unity · AR Foundation</span></div>
+          <h3 class="project__title">Floor is Lava: AR Game</h3>
+          <p class="project__desc">A mobile augmented reality game that detects the real floor and turns it into lava. My college capstone.</p>
+          <ul class="tags"><li>Unity</li><li>AR Foundation</li><li>C#</li><li>Firebase</li></ul>
+          <span class="project__more">Read case study →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title-1">Experience</h2>
+      <ol class="timeline">
+        <li class="timeline__item">
+          <span class="timeline__date">Mar 2026 – Present</span>
+          <div>
+            <h3 class="timeline__title">Shopify Solutions Engineer</h3>
+            <p class="timeline__org">Helios Technology Solutions</p>
+            <p class="timeline__text">Hydrogen and Liquid storefronts for 20+ merchants. Built the migration QA platform. Turned three unserved client needs into new billable services, $20K+ in 3 months.</p>
+          </div>
+        </li>
+        <li class="timeline__item">
+          <span class="timeline__date">May – Aug 2025</span>
+          <div>
+            <h3 class="timeline__title">Co-op Developer</h3>
+            <p class="timeline__org">Ontario Public Service</p>
+            <p class="timeline__text">ASP.NET Core and SQL Server, Azure DevOps CI/CD, Playwright tests, and WCAG 2.0 AA screen reader testing.</p>
+          </div>
+        </li>
+        <li class="timeline__item">
+          <span class="timeline__date">Sep – Dec 2024</span>
+          <div>
+            <h3 class="timeline__title">Co-op Jr. Programmer</h3>
+            <p class="timeline__org">Ontario Public Service</p>
+            <p class="timeline__text">Enterprise application work from analysis to release, across DEV, QA, UAT and PROD.</p>
+          </div>
+        </li>
+        <li class="timeline__item">
+          <span class="timeline__date">Jan – Apr 2024</span>
+          <div>
+            <h3 class="timeline__title">Co-op Jr. Software Developer</h3>
+            <p class="timeline__org">Skill Squirrel</p>
+            <p class="timeline__text">Led a subscription Portfolio Maker feature for a SaaS platform (React, Node, Express).</p>
+          </div>
+        </li>
+        <li class="timeline__item">
+          <span class="timeline__date">2022 – 2025</span>
+          <div>
+            <h3 class="timeline__title">Software Development &amp; Network Engineering</h3>
+            <p class="timeline__org">Sheridan College</p>
+            <p class="timeline__text">Advanced Diploma, Honours, 3.89 GPA. 1st place, Cloud Computing Competition (AWS).</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <ul class="content-list">
+        <li class="content-list__item">
+          <h2 class="title-2">Shopify</h2>
+          <p>Hydrogen, Liquid, Admin GraphQL and Storefront API, theme and app development</p>
+        </li>
+        <li class="content-list__item">
+          <h2 class="title-2">Frontend</h2>
+          <p>TypeScript, JavaScript, React, Next.js, Angular, HTML, CSS</p>
+        </li>
+        <li class="content-list__item">
+          <h2 class="title-2">Backend</h2>
+          <p>Node.js, Express, ASP.NET, C#, Java, Spring Boot, PostgreSQL, SQL Server, MySQL, MongoDB</p>
+        </li>
+        <li class="content-list__item">
+          <h2 class="title-2">Testing &amp; DevOps</h2>
+          <p>Jest, Vitest, Playwright, CI/CD with GitHub Actions and Azure DevOps, Docker, AWS, WCAG 2.0 AA</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__wrapper">
+      <ul class="social">
+        <li class="social__item"><a href="https://github.com/ostrovsrr" target="_blank" rel="noreferrer"><img src="img/github.png" alt="GitHub" class="social__image"></a></li>
+        <li class="social__item"><a href="https://www.linkedin.com/in/rodion-ostrovskii/" target="_blank" rel="noreferrer"><img src="img/linkedin.png" alt="LinkedIn" class="social__image"></a></li>
+      </ul>
+      <div class="copyright"><p>© 2026 Rodion Ostrovskii · <a href="mailto:ostrovsrr@gmail.com">ostrovsrr@gmail.com</a></p></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
