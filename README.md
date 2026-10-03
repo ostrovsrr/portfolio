@@ -48,7 +48,20 @@ instead of publishing a broken page.
 Create `src/pages/hobbies.astro`, wrap its content in `<Base title="..." description="...">`,
 and add it to the `nav` list in `src/layouts/Base.astro`.
 
+## Draft mode: propose changes visually
+
+Run `npm run dev`, open http://localhost:4321 and click **✎ Draft mode** (bottom right).
+
+- **⠿** drag a block to reorder it within its list (sections, cards, experience, skills, events, bullets, tags)
+- **Click any text** to rewrite it
+- **●** hide a block, **⧉** duplicate it (to add another card or item), **✎** leave a note
+- **Copy changes** puts a summary of every edit, across all pages, on your clipboard
+
+Drafts are saved in your browser, so you can close the tab and come back. Draft mode never
+edits source files and is never part of the published site: it only loads under `astro dev`
+(or a build with `PUBLIC_DRAFT_MODE=true`). The code is in `src/dev-editor/`.
+
 ## Deploying
 
-Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site and publishes it
-to GitHub Pages. Nothing else to do.
+Pushing to `main` runs `.github/workflows/deploy.yml`, which builds the site. The publish step
+then waits for the owner to approve it in GitHub (Actions → the run → **Review deployments**).
