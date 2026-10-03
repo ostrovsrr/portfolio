@@ -5,7 +5,7 @@ import '../styles/case-study.css';
 ---
 <Base
   title="Migration QA Platform · Rodion Ostrovskii"
-  description="Case study: an internal QA platform that checks Shopify migration files before import. Used by 9 migration specialists, cuts QA from 4 hours to 1 per migration."
+  description="Case study: an internal QA platform that checks Shopify migration files before import. Cuts QA from 4 hours to 1 per migration."
   ogTitle="Shopify Migration QA Platform · case study"
   ogDescription="Will Shopify accept this file? A tool that answers before the client import."
   active="projects"
@@ -24,18 +24,15 @@ import '../styles/case-study.css';
       <p class="lede">Will Shopify accept this file? I designed and built an internal tool that answers before anything touches a client store.</p>
 
       <dl class="facts">
-        <div class="fact"><dt>Role</dt><dd>Sole engineer</dd></div>
-        <div class="fact"><dt>Users</dt><dd>9 migration specialists</dd></div>
         <div class="fact"><dt>Scale</dt><dd>50k+ customers, 200k+ SKUs</dd></div>
-        <div class="fact"><dt>Where</dt><dd>Helios Technology, 2026</dd></div>
       </dl>
     </section>
 
     <section class="section">
       <h2 class="label label--heading">The problem</h2>
       <div class="prose">
-        <p>Migration specialists move merchants' customers and products into Shopify from CSV exports. Shopify rejects rows for reasons that aren't obvious from the file: a variant that duplicates another, a blank option value, an email Shopify won't accept. The team often found out after importing, then had to clean up the store and try again.</p>
-        <p>Checking a file by hand took about four hours per migration.</p>
+        <p>Migration specialists move merchants' customers and products into Shopify from CSV exports. Shopify rejects rows for reasons that aren't obvious from the file: a variant that duplicates another, a blank option value, an email Shopify won't accept.</p>
+        <p>Checking a file by hand took about four hours per customer migration. Even more for products.</p>
       </div>
     </section>
 
@@ -67,7 +64,6 @@ import '../styles/case-study.css';
       <h2 class="label label--heading">Results</h2>
       <div class="results">
         <div class="result"><b>4h → 1h</b><span>QA and prep time per migration (75% less)</span></div>
-        <div class="result"><b>9 of 9</b><span>migration specialists on the team use it</span></div>
         <div class="result"><b>200k+</b><span>SKUs per file, 50k+ customer records</span></div>
       </div>
     </section>
@@ -77,7 +73,6 @@ import '../styles/case-study.css';
       <ul class="tags stack">
         <li>TypeScript</li><li>Node.js</li><li>Express</li><li>React</li><li>Vite</li><li>PostgreSQL</li><li>Prisma</li><li>Shopify Admin GraphQL</li><li>Vitest</li><li>GitHub Actions</li>
       </ul>
-      <p class="note">This is an internal tool at Helios Technology Solutions, so the source code isn't public. I'm happy to walk through the architecture in an interview.</p>
     </section>
 
     <section class="section">

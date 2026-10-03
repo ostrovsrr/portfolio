@@ -12,7 +12,7 @@ export const experience: Job[] = [
     dates: 'Mar 2026 – Present',
     title: 'Shopify Solutions Engineer',
     org: 'Helios Technology Solutions',
-    summary: 'Hydrogen and Liquid storefronts for 20+ merchants. Built the migration QA platform. Turned three unserved client needs into new billable services, $20K+ in 3 months.',
+    summary: 'Built internal tools. Worked closely with merchants on integrations / website development / data migrations',
   },
   {
     dates: 'May – Aug 2025',

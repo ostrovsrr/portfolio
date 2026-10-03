@@ -7,7 +7,7 @@ import { experience, skills } from '../data/profile';
 <Base
   title="Rodion Ostrovskii · Shopify Solutions Engineer"
   description="Rodion Ostrovskii, Shopify Solutions Engineer in Oakville, Ontario. Hydrogen and Liquid storefronts, plus the internal tooling that makes Shopify data migrations safe."
-  ogDescription="Headless and Liquid storefronts, plus migration tooling used by a team of 9."
+  ogDescription="Headless and Liquid storefronts, plus Shopify data migration tooling."
   active="home"
   overlayHeader
   footer="big"
@@ -19,26 +19,25 @@ import { experience, skills } from '../data/profile';
   <main>
     <section class="section" id="about">
       <p class="label">(about)</p>
-      <h1 class="about__lede">Solutions Engineer with a focus on Shopify Development and Creative Solutions for you and your brand</h1>
+      <h1 class="about__lede">Software Engineer with a focus on Shopify Development</h1>
       <p class="about__text">
-        At Helios Technology I ship Hydrogen and Liquid storefronts for 20+ merchants, and I built the QA platform
-        our migration team uses to check files before import. Before that, three co-ops, two of them building
-        accessible enterprise apps for the Ontario Government.
+        Full Stack Development | Data Migration | Shopify Storefront Development | API Integration
       </p>
       <div class="about__links">
-        <a class="pill pill--dark" href="#work">See my work ↓</a>
-        <a class="pill" href="#contact">Get in touch</a>
-        <!-- Add public/resume.pdf, then add: <a href="/resume.pdf" class="pill">Download resume</a> -->
+        <a class="pill pill--dark" href="#work">See my projects ↓</a>
+        <!-- Needs public/resume.pdf before this goes live -->
+        <a class="pill" href="/resume.pdf" target="_blank" rel="noreferrer">See Resume</a>
       </div>
       <ul class="about__facts">
         <li><b>20+</b><span>merchant storefronts</span></li>
-        <li><b>4h → 1h</b><span>migration QA time</span></li>
-        <li><b>$20K+</b><span>new billable services in 3 months</span></li>
+        <li><b>100+</b><span>data migrations</span></li>
+        <li><b>3</b><span>co-op internships</span></li>
+        <li><b>10+</b><span>hackathons and events</span></li>
       </ul>
     </section>
 
     <section class="section" id="work">
-      <p class="label">(selected work) <b>{String(featured.length).padStart(2, '0')}</b></p>
+      <p class="label">(selected projects) <b>{String(featured.length).padStart(2, '0')}</b></p>
       <div class="work">
         {featured.map((p, i) => <ProjectRow project={p} index={i} />)}
         <a class="work__all pill" href="/projects">All projects →</a>

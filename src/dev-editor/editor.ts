@@ -192,7 +192,9 @@ function computeChanges(original: Original): Change[] {
       type: 'add',
       copyOf: labelOf(el.dataset.edDup!),
       after: prev?.dataset.edBlock ? labelOf(prev.dataset.edBlock) : 'start',
-      text: [...el.querySelectorAll<HTMLElement>('[data-ed-text]')].map(textOf).filter(Boolean).join(' | '),
+      // Include the block itself: a duplicated tag is a single text element with no text children.
+      text: [...(el.dataset.edText !== undefined ? [el] : []), ...el.querySelectorAll<HTMLElement>('[data-ed-text]')]
+        .map(textOf).filter(Boolean).join(' | '),
     });
   });
 
