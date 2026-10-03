@@ -1,0 +1,97 @@
+---
+// Shared page shell: <head>, nav and footer. Every page wraps its content in this.
+import '../styles/global.css';
+
+type NavKey = 'home' | 'projects' | 'events' | 'contacts';
+
+interface Props {
+  title: string;
+  description: string;
+  active?: NavKey;
+  ogTitle?: string;
+  ogDescription?: string;
+}
+const { title, description, active, ogTitle = title, ogDescription = description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const nav: { key: NavKey; label: string; href: string }[] = [
+  { key: 'home', label: 'Home', href: '/' },
+  { key: 'projects', label: 'Projects', href: '/projects' },
+  { key: 'events', label: 'Events', href: '/events' },
+  { key: 'contacts', label: 'Contacts', href: '/contacts' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <link rel="canonical" href={canonical}>
+  <meta property="og:title" content={ogTitle}>
+  <meta property="og:description" content={ogDescription}>
+  <meta property="og:type" content="website">
+  <meta property="og:url" content={canonical}>
+  <!-- Add a 1200x630 image to public/img/og.png, then: <meta property="og:image" content="https://rodion-ostrovskii.com/img/og.png"> -->
+  <link rel="icon" href="data:,">
+  <!-- Runs before first paint so a saved dark theme doesn't flash light -->
+  <script is:inline>
+    try { if (localStorage.getItem('darkMode') === 'dark') document.documentElement.classList.add('dark'); } catch (e) {}
+  </script>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="container">
+    <div class="nav-row">
+      <a href="/" class="logo"><strong>Rodion's</strong> portfolio</a>
+      <button class="dark-mode-btn" type="button" aria-label="Dark mode">
+        <img src="/img/sun.svg" alt="" class="dark-mode-btn__icon">
+        <img src="/img/moon.svg" alt="" class="dark-mode-btn__icon">
+      </button>
+      <ul class="nav-list">
+        {nav.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class:list={['nav-list__link', { 'nav-list__link--active': item.key === active }]}
+              aria-current={item.key === active ? 'page' : undefined}
+            >{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<slot />
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__wrapper">
+      <ul class="social">
+        <li class="social__item"><a href="https://github.com/ostrovsrr" target="_blank" rel="noreferrer"><img src="/img/github.png" alt="GitHub" class="social__image"></a></li>
+        <li class="social__item"><a href="https://www.linkedin.com/in/rodion-ostrovskii/" target="_blank" rel="noreferrer"><img src="/img/linkedin.png" alt="LinkedIn" class="social__image"></a></li>
+      </ul>
+      <div class="copyright"><p>© {new Date().getFullYear()} Rodion Ostrovskii · <a href="mailto:ostrovsrr@gmail.com">ostrovsrr@gmail.com</a></p></div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Same light/dark switch as the original site (the .dark class), remembered between visits.
+  const root = document.documentElement;
+  const btn = document.querySelector<HTMLButtonElement>('.dark-mode-btn');
+  if (btn) {
+    const sync = () => btn.setAttribute('aria-pressed', String(root.classList.contains('dark')));
+    sync();
+    btn.addEventListener('click', () => {
+      root.classList.toggle('dark');
+      sync();
+      try { localStorage.setItem('darkMode', root.classList.contains('dark') ? 'dark' : 'light'); } catch (e) {}
+    });
+  }
+</script>
+</body>
+</html>

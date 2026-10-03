@@ -1,0 +1,45 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base
+  title="Rewards Platform · Rodion Ostrovskii"
+  description="Case study: a full-stack rewards platform with an Angular frontend, a Spring Boot REST API, PostgreSQL and CI/CD in GitHub Actions."
+  active="projects"
+>
+  <main class="section">
+    <div class="container">
+      <div class="project-details">
+        <h1 class="title-1">Rewards Platform</h1>
+  
+        <!-- Swap for a screenshot when you have one: <img src="/img/rewards-big.jpg" alt="Rewards catalog screen"> -->
+        <div class="project-details__cover" aria-hidden="true">
+          <div class="cover-art"><b>Points → Rewards</b><span>Angular · Spring Boot · PostgreSQL</span></div>
+        </div>
+  
+        <div class="project-details__desc">
+          <p>Skills: Angular, Spring Boot, PostgreSQL, REST API, Docker, GitHub Actions CI</p>
+        </div>
+  
+        <div class="project-details__actions">
+          <a href="https://github.com/ostrovsrr/rewards-program" target="_blank" rel="noreferrer" class="btn-outline"><img src="/img/github-black.svg" alt="">GitHub repo</a>
+        </div>
+  
+        <div class="case">
+          <h2 class="title-2">What it does</h2>
+          <p>A loyalty rewards app. Members check their points balance and activity history, browse a catalog of partner rewards (travel, gift cards, merchandise and statement credits) and redeem points for them.</p>
+  
+          <h2 class="title-2">How it's built</h2>
+          <ul class="bullets">
+            <li><strong>REST API in Spring Boot</strong> for users, the rewards catalog and redemptions, consumed by the Angular frontend.</li>
+            <li><strong>Redemptions that can't double-spend.</strong> Each redemption runs in one transaction: the member's row is locked, the balance is checked and debited, and the activity and redemption records are written together. The database also rejects a negative balance.</li>
+            <li><strong>Data access with JPA and Hibernate</strong>, with the schema and seed catalog managed as Flyway migrations.</li>
+            <li><strong>Tested</strong> with unit and integration tests (Karma and Jasmine on the frontend).</li>
+            <li><strong>PostgreSQL in Docker Compose</strong>, GitHub Actions CI for the frontend, and a feature-branch workflow.</li>
+          </ul>
+  
+          <p class="next-link"><a href="/floor-is-lava">Next project: Floor is Lava →</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+</Base>

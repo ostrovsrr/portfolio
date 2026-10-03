@@ -1,0 +1,45 @@
+---
+import { getCollection, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import Tags from '../components/Tags.astro';
+
+// Entries live in src/content/events/*.md. Newest first.
+const events = (await getCollection('events')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
+const entries = await Promise.all(
+  events.map(async (event) => ({ event, Content: (await render(event)).Content })),
+);
+const monthYear = new Intl.DateTimeFormat('en-CA', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+<Base
+  title="Events · Rodion Ostrovskii"
+  description="Hackathons, competitions and community events Rodion Ostrovskii has taken part in."
+  active="events"
+>
+  <main class="section">
+    <div class="container">
+      <h1 class="title-1">Events</h1>
+      {entries.length === 0 && <p class="events-empty">Nothing here yet.</p>}
+      <ol class="events">
+        {entries.map(({ event, Content }) => (
+          <li class="event">
+            <time class="event__date" datetime={event.data.date.toISOString().slice(0, 10)}>
+              {monthYear.format(event.data.date)}
+            </time>
+            <div>
+              <h2 class="event__title">
+                {event.data.link
+                  ? <a href={event.data.link} target="_blank" rel="noreferrer">{event.data.title}</a>
+                  : event.data.title}
+              </h2>
+              <p class="event__role">{event.data.role}</p>
+              <div class="event__body"><Content /></div>
+              {event.data.tags.length > 0 && <Tags tags={event.data.tags} />}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </main>
+</Base>

@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { featured, earlier } from '../data/projects';
+---
+<Base
+  title="Projects · Rodion Ostrovskii"
+  description="Projects by Rodion Ostrovskii: a Shopify migration QA platform, a full-stack rewards platform, an AR game, and earlier work."
+  active="projects"
+>
+  <main>
+    <section class="section">
+      <div class="container">
+        <h1 class="title-1">Projects</h1>
+        <div class="projects">
+          {featured.map((p) => <ProjectCard project={p} headingLevel="h2" />)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="title-1 title-1--small">Earlier practice projects</h2>
+        <div class="projects projects--small">
+          {earlier.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </div>
+    </section>
+  </main>
+</Base>

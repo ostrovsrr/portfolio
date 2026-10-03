@@ -1,0 +1,72 @@
+---
+import Base from '../layouts/Base.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { featured } from '../data/projects';
+import { experience, skills } from '../data/profile';
+---
+<Base
+  title="Rodion Ostrovskii · Shopify Solutions Engineer"
+  description="Rodion Ostrovskii, Shopify Solutions Engineer in Oakville, Ontario. Hydrogen and Liquid storefronts, plus the internal tooling that makes Shopify data migrations safe."
+  ogDescription="Headless and Liquid storefronts, plus migration tooling used by a team of 9."
+  active="home"
+>
+  <header class="header">
+    <div class="header__wrapper">
+      <p class="header__eyebrow">Shopify Solutions Engineer · Oakville, Ontario</p>
+      <h1 class="header__title">
+        <strong>Hi, my name is <em>Rodion</em></strong><br>
+        I build Shopify storefronts and migration tools
+      </h1>
+      <div class="header__text">
+        <p>At Helios Technology I ship Hydrogen and Liquid storefronts for 20+ merchants, and I built the QA platform our migration team uses to check files before import.</p>
+      </div>
+      <div class="header__actions">
+        <a href="/projects" class="btn">View projects</a>
+        <a href="/contacts" class="btn-outline">Get in touch</a>
+        <!-- Add public/resume.pdf, then add: <a href="/resume.pdf" class="btn-outline">Download resume</a> -->
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <h2 class="title-1">Featured projects</h2>
+        <div class="projects">
+          {featured.map((p) => <ProjectCard project={p} />)}
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="title-1">Experience</h2>
+        <ol class="timeline">
+          {experience.map((job) => (
+            <li class="timeline__item">
+              <span class="timeline__date">{job.dates}</span>
+              <div>
+                <h3 class="timeline__title">{job.title}</h3>
+                <p class="timeline__org">{job.org}</p>
+                <p class="timeline__text">{job.summary}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <ul class="content-list">
+          {skills.map((group) => (
+            <li class="content-list__item">
+              <h2 class="title-2">{group.name}</h2>
+              <p>{group.items}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  </main>
+</Base>

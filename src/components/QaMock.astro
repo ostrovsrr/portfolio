@@ -1,0 +1,17 @@
+---
+// Illustration of the QA platform's results view. Sample numbers only:
+// never put real client data here. `compact` shortens labels for small cards.
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+<div class="mock" aria-hidden="true">
+  <div class="mock-panel">
+    <div class="mock-head"><span>{compact ? 'Import results · 3 stores' : 'Import results · 3 test stores'}</span><span class="ok">96.8%</span></div>
+    <div class="mock-row"><span>Imported</span><span></span><span class="ok">11,842</span></div>
+    <div class="mock-row"><span>{compact ? 'Blank option' : 'Blank option value'}</span><code>BLANK</code><span class="no">214</span></div>
+    <div class="mock-row"><span>Duplicate variant</span><code>TAKEN</code><span class="no">97</span></div>
+    <div class="mock-row"><span>Invalid email</span><code>INVALID</code><span class="no">41</span></div>
+  </div>
+</div>

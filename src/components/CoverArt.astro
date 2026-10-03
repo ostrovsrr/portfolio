@@ -1,0 +1,12 @@
+---
+// Title cover for a project that has no screenshot yet.
+interface Props {
+  title: string;
+  subtitle: string;
+  warm?: boolean;
+}
+const { title, subtitle, warm = false } = Astro.props;
+---
+<div class:list={['cover-art', { 'cover-art--warm': warm }]} aria-hidden="true">
+  <b>{title}</b><span>{subtitle}</span>
+</div>
