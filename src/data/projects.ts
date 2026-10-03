@@ -30,7 +30,7 @@ export const featured: Project[] = [
     stats: [
       { value: '4h → 1h', label: 'per migration' },
       { value: '200k+', label: 'SKUs' },
-      { value: '50k+', label: 'Customers' },
+      { value: '70k+', label: 'Customers' },
     ],
     tags: ['TypeScript', 'React', 'Node', 'PostgreSQL', 'Shopify API', 'Docker'],
   },
